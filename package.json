@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "mongoose": "^5.11.14",
+    "qs": "^6.9.6",
     "validator": "^13.5.2"
   },
   "devDependencies": {
