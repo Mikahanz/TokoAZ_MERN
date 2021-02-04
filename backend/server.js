@@ -3,15 +3,23 @@ import dotenv from 'dotenv';
 import chalk from 'chalk';
 import connectDB from './config/db.js';
 import productsRouter from './router/productsRouter.js';
+import userRouter from './router/userRouter.js';
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import { stringify } from 'querystring';
 const clog = console.log;
 
 // -----------------------------------------------------------------------
+// This allows us to use environment variables
 dotenv.config();
 
+// Connect to MongoDB using Mongoose
 connectDB();
 
+// Create App express
 const app = express();
+
+// This will allow accept json data in the body from the request
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('API is running...');
@@ -20,33 +28,16 @@ app.get('/', (req, res) => {
 // Product Routes
 app.use(productsRouter);
 
-// ! Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+// User Routes
+app.use(userRouter);
+
+// ! END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 // * 404 error creator: this will call the error handling middleware below ###
-app.use((req, res, next) => {
-  console.log(chalk.red('Not Found - 404 Error'));
-  //no specified rout meaning all server requests will pass through this code! if the code above was not resolved
-  const error = new Error(`Not Found ${req.originalUrl}`); //req.originalUrl=> is the url the user entered
-  res.status(404);
-  next(error);
-});
+app.use(notFound);
 
 // * ### error handling middleware
-app.use((err, req, res, next) => {
-  //this code will be fired off only when error object exists in the app.
-  //err- catches errors thrown from anyware in our server or errors from the
-
-  console.log(chalk.redBright(`!!!${err}`));
-  //sometimes even errors could have a statuscode of 200 so we need to change them to the 500 server error relm
-  //if it's not 200 it will have it's original status code.
-
-  res.status(err.status || 500);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack, //the stack of the error object is it's explanation (we will show it only in dev)
-  });
-  next();
-});
+app.use(errorHandler);
 
 // ! Error Handling ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

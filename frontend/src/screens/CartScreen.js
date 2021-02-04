@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
-import assert from 'assert';
 import { Link } from 'react-router-dom';
 import {
   Row,
