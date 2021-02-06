@@ -19,12 +19,13 @@ const LoginScreen = ({ location, history }) => {
 
   // This handle all the redirection
   const redirect = location.search
-    ? qs.parse(location.search, { ignoreQueryPrefix: true })
+    ? `/${qs.parse(location.search, { ignoreQueryPrefix: true }).redirect}`
     : '/';
-  //console.log(typeof location.search);
+
+  console.log(redirect);
 
   useEffect(() => {
-    // Verify if user loggedin
+    // Verify if user is loggedin
     if (userInfo) {
       history.push(redirect);
     }
