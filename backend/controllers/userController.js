@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import chalk from 'chalk';
 
-// @desc POST Register a New User
+// @desc Register a New User
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Auth user & get token
+// @desc Login user & get token
 // @route POST /api/users/login
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
@@ -53,13 +53,13 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid Password or Email');
+    throw new Error('Invalid email or password');
   }
 });
 
 // @desc GET user profile
 // @route GET /api/users/profile
-// @access Public
+// @access Private & Protected
 const getUserProfile = asyncHandler(async (req, res) => {
   //console.log(chalk.yellowBright(req.userDecodedToken.id));
 
@@ -75,9 +75,40 @@ const getUserProfile = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
     });
   } else {
-    res.status(401);
-    throw new Error('User Not Found');
+    res.status(404);
+    throw new Error('User not found');
   }
 });
 
-export { authUser, getUserProfile, registerUser };
+// @desc UPDATE user profile
+// @route PUT /api/users/profile
+// @access Private & Protected
+const updateUserProfile = asyncHandler(async (req, res) => {
+  // Get user and update user
+  const user = await User.findById(req.userDecodedToken.id);
+
+  // console.log(chalk.yellowBright(user));
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found and update failed');
+  }
+});
+
+export { authUser, getUserProfile, registerUser, updateUserProfile };

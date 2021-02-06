@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import chalk from 'chalk';
 
+// Protect protected routes
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -11,6 +12,11 @@ const protect = asyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer ')
   ) {
     try {
+      console.log(
+        chalk.bold.magenta(
+          `Requester Authorization Header: ${req.header('Authorization')}`
+        )
+      );
       // Get only the token w/out The 'Bearer '
       token = req.header('Authorization').replace('Bearer ', '');
 
@@ -21,7 +27,7 @@ const protect = asyncHandler(async (req, res, next) => {
         chalk.greenBright(`Token Request ID: ${decoded.id} verified`)
       );
 
-      // Find a user in DB with the decoded.id
+      // Assign 'req.userDecodedToken' with decoded object;
       req.userDecodedToken = decoded;
 
       next();
@@ -34,7 +40,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error('Not Authorized, No Token');
+    throw new Error('Not Authorized, No Token Provided By The Request');
   }
 });
 
