@@ -17,7 +17,7 @@ const LoginScreen = ({ location, history }) => {
   // Get userLogin State from APP Level State - This verify if a user already loggedin
   const { loading, error, userInfo } = useSelector((state) => state.userLogin);
 
-  // This handle all the redirection
+  // todo #IMPORTANT# This handle all the redirection
   const redirect = location.search
     ? `/${qs.parse(location.search, { ignoreQueryPrefix: true }).redirect}`
     : '/';
