@@ -13,15 +13,15 @@ const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   // Component level state
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  const [country, setCountry] = useState(shippingAddress.country);
+  const [address, setAddress] = useState(shippingAddress.address || '');
+  const [city, setCity] = useState(shippingAddress.city || '');
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ''
+  );
+  const [country, setCountry] = useState(shippingAddress.country || '');
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    console.log('form submited');
 
     // dispatch save shipping address
     dispatch(
@@ -49,6 +49,7 @@ const ShippingScreen = ({ history }) => {
             type='text'
             placeholder='Enter Address'
             value={address}
+            required
             onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -59,6 +60,7 @@ const ShippingScreen = ({ history }) => {
             type='text'
             placeholder='Enter City'
             value={city}
+            required
             onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -69,6 +71,7 @@ const ShippingScreen = ({ history }) => {
             type='text'
             placeholder='Enter Postal Code'
             value={postalCode}
+            required
             onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -79,6 +82,7 @@ const ShippingScreen = ({ history }) => {
             type='text'
             placeholder='Enter Country'
             value={country}
+            required
             onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
         </Form.Group>

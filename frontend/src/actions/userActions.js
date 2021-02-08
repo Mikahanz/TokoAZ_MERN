@@ -158,7 +158,7 @@ export const resetUserDetails = () => (dispatch) => [
   dispatch({ type: USER_DETAILS_RESET }),
 ];
 
-// *GET USER DETAILS ACTION ----------------------------------------
+// *UPDATE USER PROFILE ACTION ----------------------------------------
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({

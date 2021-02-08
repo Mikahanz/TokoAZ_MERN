@@ -4,8 +4,9 @@ import chalk from 'chalk';
 import connectDB from './config/db.js';
 import productsRouter from './router/productsRouter.js';
 import userRouter from './router/userRouter.js';
+import orderRouter from './router/orderRouter.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
-import { stringify } from 'querystring';
+
 const clog = console.log;
 
 // -----------------------------------------------------------------------
@@ -31,7 +32,10 @@ app.use(productsRouter);
 // User Routes
 app.use(userRouter);
 
-// ! END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+// Order Routes
+app.use(orderRouter);
+
+// todo END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 // * 404 error creator: this will call the error handling middleware below ###
 app.use(notFound);
@@ -39,7 +43,7 @@ app.use(notFound);
 // * ### error handling middleware
 app.use(errorHandler);
 
-// ! Error Handling ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// todo END POINTS Error Handling ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // -----------------------------------------------------------------------
 const port = process.env.PORT || 5000;
