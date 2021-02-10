@@ -6,7 +6,7 @@ import {
   CART_SAVE_PAYMENT_METHOD,
 } from '../constants/cartConstants';
 
-// Add Item To Cart
+// Add Item To Cart ACTION
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   try {
     const { data } = await axios.get(`/api/products/${id}`);
@@ -33,7 +33,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
   }
 };
 
-// Remove Item From Cart
+// Remove Item From Cart ACTION
 export const removeFromCart = (id) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -53,7 +53,7 @@ export const removeFromCart = (id) => async (dispatch, getState) => {
   }
 };
 
-// Save Shipping Address
+// Save Shipping Address ACTION
 export const saveShippingAddress = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -68,7 +68,7 @@ export const saveShippingAddress = (data) => async (dispatch) => {
   }
 };
 
-// Save Payment Method
+// Save Payment Method ACTION
 export const savePaymentMethod = (method) => async (dispatch) => {
   try {
     dispatch({

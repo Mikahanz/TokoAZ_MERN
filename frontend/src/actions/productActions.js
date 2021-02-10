@@ -9,6 +9,7 @@ import {
 } from '../constants/productConstants';
 
 // Redux-thunk allows us to add a function within a function using dispatch function
+// LIST PRODUCTS ACTION
 export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -32,6 +33,7 @@ export const listProducts = () => async (dispatch) => {
   }
 };
 
+// LIST PRODUCT DETAILS ACTION
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });

@@ -5,6 +5,7 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from '../constants/cartConstants';
 
+// CART REDUCER
 export const cartReducer = (
   state = { cartItems: [], shippingAddress: {} },
   action
