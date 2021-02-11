@@ -15,6 +15,7 @@ import {
   USER_UPDATE_PROFILE_FAIL,
 } from '../constants/userConstants';
 import axios from 'axios';
+import { ORDER_LIST_MINE_RESET } from '../constants/orderConstants';
 
 // *LOGIN USER ACTION -------------------------------------------
 export const login = (email, password) => async (dispatch) => {
@@ -59,13 +60,14 @@ export const login = (email, password) => async (dispatch) => {
 
 // *LOGOUT USER ACTION ------------------------------------------
 export const logout = () => async (dispatch) => {
+  // Remove userInfo from localStorage (remove from cache)
+  localStorage.removeItem('userInfo');
   // Dispatch LOGOUT to reducer
   dispatch({
     type: USER_LOGOUT,
   });
-
-  // Remove userInfo from localStorage (remove from cache)
-  localStorage.removeItem('userInfo');
+  dispatch({ type: USER_DETAILS_RESET });
+  dispatch({ type: ORDER_LIST_MINE_RESET });
 };
 
 // *REGISTER USER ACTION --------------------------------------------
@@ -153,10 +155,10 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-// Reset User Details to Empty user
-export const resetUserDetails = () => (dispatch) => [
-  dispatch({ type: USER_DETAILS_RESET }),
-];
+// // Reset User Details to Empty user
+// export const resetUserDetails = () => (dispatch) => [
+//   dispatch({ type: USER_DETAILS_RESET }),
+// ];
 
 // *UPDATE USER PROFILE ACTION ----------------------------------------
 export const updateUserProfile = (user) => async (dispatch, getState) => {

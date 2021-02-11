@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   addOrderItems,
+  getMyOrders,
   getOrderById,
   updateOrderToPaid,
 } from '../controllers/orderController.js';
@@ -12,6 +13,11 @@ const router = express.Router();
 // @route POST /api/orders
 // @access Private
 router.route('/api/orders').post(protect, addOrderItems);
+
+// @desc Get logged in user orders
+// @route GET /api/orders/myorders
+// @access Private
+router.route('/api/orders/myorders').get(protect, getMyOrders);
 
 // @desc GET order by id
 // @route GET /api/orders/:id

@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { logout, resetUserDetails } from '../actions/userActions';
+import { logout } from '../actions/userActions';
 
-const Header = () => {
+const Header = ({ history }) => {
   const dispatch = useDispatch();
 
   // Get userLogin State from APP Level State - This verify if a user already loggedin
@@ -12,7 +12,6 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    dispatch(resetUserDetails());
   };
 
   return (

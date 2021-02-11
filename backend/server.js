@@ -35,6 +35,11 @@ app.use(userRouter);
 // Order Routes
 app.use(orderRouter);
 
+// Get Paypal Client Id
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
+
 // todo END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 // * 404 error creator: this will call the error handling middleware below ###
