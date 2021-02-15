@@ -44,4 +44,16 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+const admin = asyncHandler(async (req, res, next) => {
+  // find User by decodedToken id
+  const user = await User.findById(req.userDecodedToken.id); // This is from protect middleware above
+
+  if (user && user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error(`Not authorized as an administrator`);
+  }
+});
+
+export { protect, admin };

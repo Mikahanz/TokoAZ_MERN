@@ -4,8 +4,12 @@ import {
   getUserProfile,
   registerUser,
   updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
 } from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -28,5 +32,25 @@ router.route('/api/users/profile').get(protect, getUserProfile);
 // @route PUT /api/users/profile
 // @access Private & Protected
 router.route('/api/users/profile').put(protect, updateUserProfile);
+
+// @desc UPDATE user by id
+// @route PUT /api/users/:id
+// @access Private & Protected / ADMIN
+router.route('/api/users/:id').put(protect, admin, updateUser);
+
+// @desc GET all user by id
+// @route GET /api/user/:id
+// @access Private & Protected / Admin
+router.route('/api/users/:id').get(protect, admin, getUserById);
+
+// @desc GET all users
+// @route GET /api/users
+// @access Private & Protected / Admin
+router.route('/api/users').get(protect, admin, getUsers);
+
+// @desc DELETE a user
+// @route DELETE /api/users/:id
+// @access Private & Protected / Admin
+router.route('/api/users/:id').delete(protect, admin, deleteUser);
 
 export default router;
