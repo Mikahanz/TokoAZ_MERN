@@ -114,7 +114,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @access Private & Protected / Admin
 const getUsers = asyncHandler(async (req, res) => {
   // Get user (w/out the password)
-  const users = await User.find({}).select('-password'); // 'req.userDecodedToken' object is from middleware 'protect'
+  const users = await User.find({}).select('-password');
 
   res.json(users);
 });
