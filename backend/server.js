@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
@@ -5,6 +6,7 @@ import connectDB from './config/db.js';
 import productsRouter from './router/productsRouter.js';
 import userRouter from './router/userRouter.js';
 import orderRouter from './router/orderRouter.js';
+import uploadRouter from './router/uploadRouter.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 
 const clog = console.log;
@@ -39,6 +41,13 @@ app.use(orderRouter);
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
+
+// Image Upload Router
+app.use(uploadRouter);
+
+// Make uploads folder accessible by the browser by making it static
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // todo END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 

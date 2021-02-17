@@ -12,6 +12,9 @@ import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
 } from '../constants/productConstants';
 
 // Redux-thunk allows us to add a function within a function using dispatch function
@@ -116,7 +119,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    // Getting data back after success GET user PAY by id Operation
+    // Getting data back after create product
     const { data } = await axios.post(`/api/products`, {}, config);
 
     // Dispatch the data to reducer
@@ -127,6 +130,47 @@ export const createProduct = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+// UPDATE PRODUCT ACTION
+export const updateProduct = (product) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    // Create Headers with Token for PUT operation
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    // Getting data back after UPDATE product
+    const { data } = await axios.put(
+      `/api/products/${product._id}`,
+      product,
+      config
+    );
+
+    // Dispatch the data to reducer
+    dispatch({
+      type: PRODUCT_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

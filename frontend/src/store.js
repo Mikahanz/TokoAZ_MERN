@@ -4,6 +4,7 @@ import {
   productDetailsReducer,
   productDeleteReducer,
   productCreateReducer,
+  productUpdateReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
@@ -20,6 +21,8 @@ import {
   orderDetailsReducer,
   orderListMineReducer,
   orderPayReducer,
+  orderDeliverReducer,
+  orderListAllReducer,
 } from './reducers/orderReducer';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -31,6 +34,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
+  productUpdate: productUpdateReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -43,6 +47,8 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMine: orderListMineReducer,
+  orderListAll: orderListAllReducer,
+  orderDeliver: orderDeliverReducer,
 });
 
 // Get cartItems from local storage

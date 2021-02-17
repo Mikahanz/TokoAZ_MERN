@@ -39,11 +39,12 @@ const ProductListScreen = ({ history, match }) => {
     // Reset createProduct State
     dispatch({ type: PRODUCT_CREATE_RESET });
 
-    // Verify if user logged in and isAdmin
-    if (!userInfo.isAdmin) {
+    // Verify if user loggedin and isAdmin
+    if (!userInfo || !userInfo.isAdmin) {
       history.push('/login');
     }
 
+    // If create product was successful, redirect to ProductEditScreen else list all the products
     if (successCreate) {
       history.push(`/admin/product/${createdProduct._id}/edit`);
     } else {
