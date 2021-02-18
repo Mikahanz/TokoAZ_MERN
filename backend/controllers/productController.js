@@ -7,6 +7,13 @@ import qs from 'qs';
 // @route Get /api/products?keyword=keyword
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
+  // page size
+  const pageSize = 10;
+
+  // get the page number from the query
+  const page = Number(req.query.pageNumber) || 1;
+
+  // search keyword
   const keyword = req.query.keyword
     ? {
         name: {
@@ -18,8 +25,16 @@ const getProducts = asyncHandler(async (req, res) => {
 
   //console.log({ ...keyword });
 
-  const products = await Product.find({ ...keyword });
-  res.json(products);
+  // get number of products
+  const count = await Product.countDocuments({ ...keyword });
+
+  // get products
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  // return the products with page and pages number
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc Get Product by Id
