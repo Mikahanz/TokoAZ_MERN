@@ -3,6 +3,11 @@ import validator from 'validator';
 
 const reviewSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: 'UserId is required',
+      ref: 'User',
+    },
     name: {
       type: String,
       required: 'User Name is required',

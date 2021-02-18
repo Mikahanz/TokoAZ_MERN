@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import chalk from 'chalk';
+import morgan from 'morgan';
 import connectDB from './config/db.js';
 import productsRouter from './router/productsRouter.js';
 import userRouter from './router/userRouter.js';
@@ -20,6 +21,11 @@ connectDB();
 
 // Create App express
 const app = express();
+
+// HTTP Request Logger (morgan) - ONLY in Development Mode
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // This will allow accept json data in the body from the request
 app.use(express.json());
