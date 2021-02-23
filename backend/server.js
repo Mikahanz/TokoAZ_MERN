@@ -30,10 +30,6 @@ if (process.env.NODE_ENV === 'development') {
 // This will allow accept json data in the body from the request
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
-
 // Product Routes
 app.use(productsRouter);
 
@@ -54,6 +50,20 @@ app.use(uploadRouter);
 // Make uploads folder accessible by the browser by making it static
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+//  Setup static asset for production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  // route for anything other than the routes above
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running...');
+  });
+}
 
 // todo END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
