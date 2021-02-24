@@ -51,8 +51,9 @@ app.use(uploadRouter);
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
-//  Setup static asset for production
+// * FOR PRODUCTION ----------------------------
 if (process.env.NODE_ENV === 'production') {
+  //  Setup static asset for production
   app.use(express.static(path.join(__dirname, '/frontend/build')));
 
   // route for anything other than the routes above
@@ -64,6 +65,7 @@ if (process.env.NODE_ENV === 'production') {
     res.send('API is running...');
   });
 }
+// * FOR PRODUCTION -----------------------------
 
 // todo END POINTS Error Handling vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
