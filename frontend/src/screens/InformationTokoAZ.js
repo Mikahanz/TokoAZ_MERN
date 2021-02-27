@@ -103,7 +103,17 @@ const InformationTokoAZ = () => {
           <h6>Mongoose</h6>
         </li>
         <li>
-          <h6>REST API</h6>
+          <h6>
+            RESTFUL API{' - '}
+            <a
+              href='https://documenter.getpostman.com/view/11849258/TWDdhskq#cd65a29d-5b56-4ca7-8201-9e257465b479'
+              style={{ color: 'blue', 'font-weight': 'bold' }}
+              target='_blank'
+              rel='noreferrer'
+            >
+              Click Here for Detail
+            </a>
+          </h6>
         </li>
         <li>
           <h6>JSON Web Token (JWT)</h6>
