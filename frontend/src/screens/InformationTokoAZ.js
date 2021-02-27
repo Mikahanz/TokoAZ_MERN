@@ -106,7 +106,7 @@ const InformationTokoAZ = () => {
           <h6>
             RESTFUL API{' - '}
             <a
-              href='https://documenter.getpostman.com/view/11849258/TWDdhskq#cd65a29d-5b56-4ca7-8201-9e257465b479'
+              href='https://documenter.getpostman.com/view/11849258/TWDdhskq'
               style={{ color: 'blue', 'font-weight': 'bold' }}
               target='_blank'
               rel='noreferrer'
