@@ -33,7 +33,10 @@ const HomeScreen = ({ match }) => {
           Go Back
         </Link>
       )}
-      <h1>Latest Products</h1>
+      <h1 className="text-3xl font-bold !text-orange-500 underline">
+        Hello world!
+      </h1>
+      <h1 className="text-orange-500">Latest Products</h1>
 
       {loading ? (
         <Loader />
